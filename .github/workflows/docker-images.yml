@@ -29,6 +29,7 @@ jobs:
             ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest' || '' }}
             ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts' || '' }}
   extended:
+    needs: [base]
     uses: "tweedegolf/actions-container-helpers/.github/workflows/container-image.yml@main"
     with:
         file: Dockerfile-extended
@@ -43,6 +44,7 @@ jobs:
             ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts-extended' || '' }}
 
   full:
+    needs: [extended]
     uses: "tweedegolf/actions-container-helpers/.github/workflows/container-image.yml@main"
     with:
         file: Dockerfile-full
