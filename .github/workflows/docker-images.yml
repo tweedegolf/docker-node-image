@@ -1,0 +1,57 @@
+name: Docker
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        type: string
+      latest:
+        type: boolean
+      lts:
+        type: boolean
+      debian_version:
+        type: string
+      postgresql_version:
+        type: string
+
+jobs:
+  base:
+    uses: "tweedegolf/actions-container-helpers/.github/workflows/container-image.yml@main"
+    with:
+        push: ${{ github.ref == 'refs/heads/main' }}
+        platforms: "linux/amd64,linux/arm64"
+        build-args: |
+            DEBIAN_VERSION=${{ inputs.debian_version }}
+            NODE_VERSION=${{ inputs.node_version }}
+            POSTGRESQL_VERSION=${{ inputs.postgresql_version }}
+        tags: |
+            ghcr.io/tweedegolf/node:${{inputs.node_version}}
+            ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest' || '' }}
+            ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts' || '' }}
+  extended:
+    uses: "tweedegolf/actions-container-helpers/.github/workflows/container-image.yml@main"
+    with:
+        file: Dockerfile-extended
+        push: ${{ github.ref == 'refs/heads/main' }}
+        platforms: "linux/amd64,linux/arm64"
+        build-args: |
+            DEBIAN_VERSION=${{ inputs.debian_version }}
+            NODE_VERSION=${{ inputs.node_version }}
+        tags: |
+            ghcr.io/tweedegolf/node:${{inputs.node_version}}-extended
+            ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest-extended' || '' }}
+            ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts-extended' || '' }}
+
+  full:
+    uses: "tweedegolf/actions-container-helpers/.github/workflows/container-image.yml@main"
+    with:
+        file: Dockerfile-full
+        push: ${{ github.ref == 'refs/heads/main' }}
+        platforms: "linux/amd64,linux/arm64"
+        build-args: |
+            DEBIAN_VERSION=${{ inputs.debian_version }}
+            NODE_VERSION=${{ inputs.node_version }}
+        tags: |
+            ghcr.io/tweedegolf/node:${{inputs.node_version}}-full
+            ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest-full' || '' }}
+            ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts-full' || '' }}

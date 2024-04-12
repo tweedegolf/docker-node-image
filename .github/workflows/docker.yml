@@ -1,0 +1,23 @@
+name: Docker
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - node_version: 20
+            latest: true
+            lts: true
+          - node_version: 18
+            latest: false
+            lts: false
+    uses: "./.github/workflows/docker-images.yml"
+    with:
+        node_version: ${{ matrix.node_version }}
+        latest: ${{ matrix.latest }}
+        lts: ${{ matrix.lts }}
+        debian_version: bookworm
+        postgresql_version: "16"
