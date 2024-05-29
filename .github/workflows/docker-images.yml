@@ -23,41 +23,44 @@ jobs:
       - name: Build the base image
         uses: tweedegolf/build-container-image@main
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: "linux/amd64,linux/arm64"
           build-args: |
-              DEBIAN_VERSION=${{ inputs.debian_version }}
-              NODE_VERSION=${{ inputs.node_version }}
-              POSTGRESQL_VERSION=${{ inputs.postgresql_version }}
+            DEBIAN_VERSION=${{ inputs.debian_version }}
+            NODE_VERSION=${{ inputs.node_version }}
+            POSTGRESQL_VERSION=${{ inputs.postgresql_version }}
           tags: |
-              ghcr.io/tweedegolf/node:${{inputs.node_version}}
-              ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest' || '' }}
-              ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts' || '' }}
+            ghcr.io/tweedegolf/node:${{inputs.node_version}}
+            ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest' || '' }}
+            ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts' || '' }}
 
       - name: Build the extended image
         uses: tweedegolf/build-container-image@main
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           file: Dockerfile-extended
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: "linux/amd64,linux/arm64"
           build-args: |
-              DEBIAN_VERSION=${{ inputs.debian_version }}
-              NODE_VERSION=${{ inputs.node_version }}
+            DEBIAN_VERSION=${{ inputs.debian_version }}
+            NODE_VERSION=${{ inputs.node_version }}
           tags: |
-              ghcr.io/tweedegolf/node:${{inputs.node_version}}-extended
-              ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest-extended' || '' }}
-              ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts-extended' || '' }}
+            ghcr.io/tweedegolf/node:${{inputs.node_version}}-extended
+            ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest-extended' || '' }}
+            ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts-extended' || '' }}
 
       - name: Build the full image
         uses: tweedegolf/build-container-image@main
         with:
-            file: Dockerfile-full
-            push: ${{ github.ref == 'refs/heads/main' }}
-            platforms: "linux/amd64,linux/arm64"
-            build-args: |
-                DEBIAN_VERSION=${{ inputs.debian_version }}
-                NODE_VERSION=${{ inputs.node_version }}
-            tags: |
-                ghcr.io/tweedegolf/node:${{inputs.node_version}}-full
-                ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest-full' || '' }}
-                ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts-full' || '' }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          file: Dockerfile-full
+          push: ${{ github.ref == 'refs/heads/main' }}
+          platforms: "linux/amd64,linux/arm64"
+          build-args: |
+            DEBIAN_VERSION=${{ inputs.debian_version }}
+            NODE_VERSION=${{ inputs.node_version }}
+          tags: |
+            ghcr.io/tweedegolf/node:${{inputs.node_version}}-full
+            ${{ inputs.latest && 'ghcr.io/tweedegolf/node:latest-full' || '' }}
+            ${{ inputs.lts && 'ghcr.io/tweedegolf/node:lts-full' || '' }}
