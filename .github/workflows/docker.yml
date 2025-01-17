@@ -10,16 +10,16 @@ jobs:
         include:
           - node_version: 22
             latest: true
-            lts: false
+            lts: true
           - node_version: 20
             latest: false
-            lts: true
+            lts: false
           - node_version: 18
             latest: false
             lts: false
     env:
       debian_version: bookworm
-      postgresql_version: 16
+      postgresql_version: 17
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7

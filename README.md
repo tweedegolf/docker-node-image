@@ -4,8 +4,8 @@ tools. For yarn we use the 1.0 version distributed from their apt repository.
 Currently these tags are available:
 
 * Node.js 18: `18`
-* Node.js 20: `20`, `lts`
-* Node.js 22: `22`, `latest`
+* Node.js 20: `20`
+* Node.js 22: `22`, `lts`, `latest`
 
 All versions contain node.js at the specified version, npm and yarn. They also
 include the postgresql client applications (e.g. psql and others) and include
