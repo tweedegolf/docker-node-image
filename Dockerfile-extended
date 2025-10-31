@@ -1,4 +1,4 @@
-ARG NODE_VERSION
+ARG NODE_VERSION=24
 FROM ghcr.io/tweedegolf/node:${NODE_VERSION}
 
 # Install dependencies for extended install
