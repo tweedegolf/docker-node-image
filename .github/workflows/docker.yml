@@ -46,7 +46,7 @@ jobs:
         uses: tweedegolf/build-container-image@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          file: Dockerfile-extended
+          file: Dockerfile-extended-${{ matrix.debian }}
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: "linux/amd64,linux/arm64"
           build-args: |
