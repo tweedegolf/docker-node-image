@@ -8,18 +8,21 @@ jobs:
     strategy:
       matrix:
         include:
-          - node_version: 22
+          - node_version: 24
             latest: true
             lts: true
+            debian: trixie
+            postgresql: 18
+          - node_version: 22
+            latest: false
+            lts: false
+            debian: bookworm
+            postgresql: 17
           - node_version: 20
             latest: false
             lts: false
-          - node_version: 18
-            latest: false
-            lts: false
-    env:
-      debian_version: bookworm
-      postgresql_version: 17
+            debian: bookworm
+            postgresql: 17
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -31,9 +34,9 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: "linux/amd64,linux/arm64"
           build-args: |
-            DEBIAN_VERSION=${{ env.debian_version }}
+            DEBIAN_VERSION=${{ matrix.debian }}
             NODE_VERSION=${{ matrix.node_version }}
-            POSTGRESQL_VERSION=${{ env.postgresql_version }}
+            POSTGRESQL_VERSION=${{ matrix.postgresql }}
           tags: |
             ghcr.io/tweedegolf/node:${{matrix.node_version}}
             ${{ matrix.latest && 'ghcr.io/tweedegolf/node:latest' || '' }}
@@ -47,7 +50,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: "linux/amd64,linux/arm64"
           build-args: |
-            DEBIAN_VERSION=${{ env.debian_version }}
+            DEBIAN_VERSION=${{ matrix.debian }}
             NODE_VERSION=${{ matrix.node_version }}
           tags: |
             ghcr.io/tweedegolf/node:${{matrix.node_version}}-extended
@@ -62,7 +65,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: "linux/amd64,linux/arm64"
           build-args: |
-            DEBIAN_VERSION=${{ env.debian_version }}
+            DEBIAN_VERSION=${{ matrix.debian }}
             NODE_VERSION=${{ matrix.node_version }}
           tags: |
             ghcr.io/tweedegolf/node:${{matrix.node_version}}-full
