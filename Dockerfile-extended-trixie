@@ -9,7 +9,6 @@ RUN apt-get update \
         python3-dev \
         python3-pip \
         python3-venv \
-        gconf-service \
         libasound2 \
         libatk1.0-0 \
         libc6 \
@@ -20,7 +19,6 @@ RUN apt-get update \
         libfontconfig1 \
         libgbm-dev \
         libgcc1 \
-        libgconf-2-4 \
         libgdk-pixbuf-xlib-2.0-0 \
         libglib2.0-0 \
         libgtk-3-0 \

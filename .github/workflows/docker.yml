@@ -13,16 +13,19 @@ jobs:
             lts: true
             debian: trixie
             postgresql: 18
+            dockerfile: Dockerfile
           - node_version: 22
             latest: false
             lts: false
             debian: bookworm
             postgresql: 17
+            dockerfile: Dockerfile-old
           - node_version: 20
             latest: false
             lts: false
             debian: bookworm
             postgresql: 17
+            dockerfile: Dockerfile-old
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -31,6 +34,7 @@ jobs:
         uses: tweedegolf/build-container-image@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ matrix.dockerfile }}
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: "linux/amd64,linux/arm64"
           build-args: |
