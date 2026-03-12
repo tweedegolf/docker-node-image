@@ -16,4 +16,9 @@ RUN apt-get update \
         libglapi-mesa \
         libgl1-mesa-dri \
         mesa-utils \
+        libcairo2-dev \
+        libjpeg-dev \
+        libpango1.0-dev \
+        librsvg2-dev \
+        libgif-dev \
     && rm -rf /var/lib/apt/lists/*
