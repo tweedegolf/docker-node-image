@@ -8,9 +8,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - node_version: 24
+          - node_version: 26
             latest: true
             lts: true
+            debian: trixie
+            postgresql: 18
+            dockerfile: Dockerfile
+          - node_version: 24
+            latest: false
+            lts: false
             debian: trixie
             postgresql: 18
             dockerfile: Dockerfile

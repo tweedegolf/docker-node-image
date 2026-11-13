@@ -5,7 +5,8 @@ Currently these tags are available:
 
 * Node.js 20: `20`
 * Node.js 22: `22`
-* Node.js 24: `24`, `lts`, `latest`
+* Node.js 24: `24`
+* Node.js 26: `lts`, `latest`
 
 All versions contain node.js at the specified version, npm and yarn. They also
 include the postgresql client applications (e.g. psql and others) and include
